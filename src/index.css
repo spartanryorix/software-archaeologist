@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+
+/* ============================================================
+   Software Archaeologist — "Blueprint Navy" theme
+   NOTE: the design-system engine mis-classified this product as a
+   Podcast Platform and returned a green accent. Per the rule that
+   explicit user choices win, the palette below is the user-chosen
+   Blueprint Navy system (deep navy, electric blue + cyan).
+   ============================================================ */
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* surfaces (dark elevation via lightness steps) */
+  --color-base: #070e1e;
+  --color-panel: #0b1730;
+  --color-raised: #0f1e3c;
+  --color-inset: #050a15;
+
+  /* lines */
+  --color-line: #1b2f52;
+  --color-line-strong: #274a78;
+
+  /* text */
+  --color-fg: #e6f0ff;
+  --color-muted: #8ca3c7;
+  --color-faint: #5b7196;
+
+  /* accents */
+  --color-primary: #3b82f6;
+  --color-primary-strong: #2e6bff;
+  --color-accent: #22d3ee;
+  --color-ok: #2dd4bf;
+  --color-warn: #f59e0b;
+  --color-danger: #fb7185;
+
+  --radius-xl: 0.9rem;
+
+  --animate-fade-up: fade-up 320ms cubic-bezier(0, 0, 0.2, 1) both;
+  --animate-pulse-soft: pulse-soft 2.4s ease-in-out infinite;
+  --animate-log-in: log-in 180ms ease-out both;
+  --animate-scan: scan 3.6s linear infinite;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes pulse-soft {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.4;
+    }
+  }
+  @keyframes log-in {
+    from {
+      opacity: 0;
+      transform: translateY(3px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+  @keyframes scan {
+    0% {
+      transform: translateY(-10%);
+    }
+    100% {
+      transform: translateY(110%);
+    }
+  }
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+  }
+
+  body {
+    background-color: var(--color-base);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-primary) 45%, transparent);
+    color: #fff;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-line-strong) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: var(--color-line-strong);
+    border-radius: 999px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  *::-webkit-scrollbar-thumb:hover {
+    background: color-mix(in oklab, var(--color-accent) 45%, var(--color-line-strong));
+    background-clip: padding-box;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* Faint blueprint grid for texture (kept near-invisible) */
+@utility blueprint-grid {
+  background-image:
+    linear-gradient(to right, rgba(34, 211, 238, 0.055) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(34, 211, 238, 0.055) 1px, transparent 1px);
+  background-size: 34px 34px, 34px 34px;
+}
+
+@utility dot-grid {
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-accent) 10%, transparent) 1px,
+    transparent 1px
+  );
+  background-size: 22px 22px;
+}
+
+@utility text-glow {
+  text-shadow: 0 0 22px color-mix(in oklab, var(--color-accent) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 80ms !important;
+    scroll-behavior: auto !important;
+  }
+}

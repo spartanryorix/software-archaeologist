@@ -1,0 +1,21 @@
+# __HOST__ is replaced by deploy/setup.sh (e.g. 65-20-73-131.sslip.io -> free automatic HTTPS)
+__HOST__ {
+	request_body {
+		max_size 30MB
+	}
+
+	# API: flush_interval -1 streams the sandbox log to the browser in real time
+	handle /api/* {
+		reverse_proxy 127.0.0.1:3001 {
+			flush_interval -1
+		}
+	}
+
+	# The React app
+	handle {
+		encode gzip
+		root * /var/www/app
+		try_files {path} /index.html
+		file_server
+	}
+}
